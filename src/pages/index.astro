@@ -41,8 +41,8 @@ const skills = [
     <section class="first">
       <section class="hello">
         <span class="me">
-          <div class="flex items-center mb-5">
-            <figure class="avatar mr-6">
+          <div class="flex items-center mb-5 flex-col sm:flex-row text-center sm:text-left">
+            <figure class="avatar sm:mr-6 mb-6 sm:mb-0">
               <img
                 src="https://avatars.githubusercontent.com/u/50281523?v=4"
                 alt="Felipe Heredia image"
@@ -214,12 +214,20 @@ const skills = [
     section.first {
       @apply flex flex-col items-center justify-center h-screen w-full;
 
+      @media(max-width: 768px) {
+        @apply h-full pt-5 pb-10;
+      }
+
       section.hello {
         @apply flex flex-col justify-between w-2/4 p-10 h-min p-10 shadow-xl bg-white duration-700;
 
         &:hover {
           @apply shadow-2xl;
           transform: scale(1.025);
+        }
+
+        @media (max-width: 1024px) {
+          @apply w-11/12;
         }
 
         span.contact {
@@ -234,12 +242,20 @@ const skills = [
       section.social-media-container {
         @apply flex mt-12;
 
+        @media (max-width: 640px) {
+          @apply flex-col;
+        }
+
         a.social-media {
-          @apply flex items-center text-lg mx-6 transition-all duration-500;
+          @apply flex justify-center items-center text-lg mx-6 transition-all duration-500;
 
           &:hover {
             @apply underline cursor-pointer translate-x-1 text-stone-600;
           }
+
+        @media (max-width: 640px) {
+          @apply mx-0 my-3;
+        }
 
           svg {
             @apply mr-2;
@@ -261,6 +277,11 @@ const skills = [
 
         aside.services {
           @apply w-3/12;
+
+          @media (max-width: 768px) {
+              @apply w-10/12;
+            }
+
           div.service {
             @apply mb-5;
 
@@ -276,6 +297,10 @@ const skills = [
 
         aside.skills {
           @apply flex flex-wrap justify-center float-left w-full max-w-sm ml-20;
+
+          @media(max-width: 768px) {
+              @apply ml-0;
+            }
 
           div.skill {
             @apply flex items-center justify-center max-h-12 bg-stone-300 p-4 m-1.5 rounded-3xl font-bold text-sm duration-500;
