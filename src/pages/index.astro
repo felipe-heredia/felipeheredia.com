@@ -34,18 +34,33 @@ const skills = [
     iconClass: "devicon-wordpress-plain colored",
   },
 ];
+
+const services = [
+  {
+    name: "Software development",
+    description:
+      "Lorem ipsum <mark>sollicitudin</mark> neque hac tincidunt ad praesent himenaeos pretium sem <small>libero</small>, varius torquent donec bibendum nullam dolor nisl at <ins>sollicitudin</ins> vivamus. id nisi ligula condimentum elit, sodales litora malesuada maecenas praesent, urna elementum risus.",
+  },
+  {
+    name: "Software consulting",
+    description:
+      "Lorem ipsum <i>sollicitudin</i> neque hac tincidunt ad praesent himenaeos pretium sem libero, varius <del>torquent</del> donec bibendum nullam dolor nisl at sollicitudin vivamus. id nisi ligula condimentum elit, sodales litora malesuada maecenas praesent, urna elementum <b>risus</b>.",
+  },
+];
 ---
 
 <Layout title="Felipe Heredia | Backend Developer">
-  <main class="flex flex-col items-center min-h-screen">
-    <section class="first">
-      <section class="hello">
-        <span class="me">
-          <div class="flex items-center mb-5 flex-col sm:flex-row text-center sm:text-left">
-            <figure class="avatar sm:mr-6 mb-6 sm:mb-0">
+  <main>
+    <section class="about">
+      <section class="about-container">
+        <div class="hello">
+          <div class="avatar-container">
+            <figure class="avatar">
               <img
+                width="145px"
+                height="145px"
                 src="https://avatars.githubusercontent.com/u/50281523?v=4"
-                alt="Felipe Heredia image"
+                alt="Felipe Heredia, depicted in the image"
               />
             </figure>
 
@@ -66,12 +81,12 @@ const skills = [
             pellentesque fames et dolor convallis et magna mollis aliquam in viverra
             sagittis.
           </p>
-        </span>
+        </div>
 
-        <span class="contact">
+        <div class="contact">
           <p>Contact me:</p>
           <a id="email" href="mailto:hello@felipeheredia.com">hello@felipeheredia.com</a>
-        </span>
+        </div>
       </section>
 
       <section class="social-media-container">
@@ -164,25 +179,14 @@ const skills = [
 
         <div class="services-content">
           <aside class="services">
-            <div class="service">
-              <h3>Software development</h3>
-              <p>
-                Lorem ipsum sollicitudin neque hac tincidunt ad praesent himenaeos pretium
-                sem libero, varius torquent donec bibendum nullam dolor nisl at
-                sollicitudin vivamus. id nisi ligula condimentum elit, sodales litora
-                malesuada maecenas praesent, urna elementum risus.
-              </p>
-            </div>
-
-            <div class="service">
-              <h3>Software consulting</h3>
-              <p>
-                Lorem ipsum sollicitudin neque hac tincidunt ad praesent himenaeos pretium
-                sem libero, varius torquent donec bibendum nullam dolor nisl at
-                sollicitudin vivamus. id nisi ligula condimentum elit, sodales litora
-                malesuada maecenas praesent, urna elementum risus.
-              </p>
-            </div>
+            {
+              services.map(service => (
+                <div class="service">
+                  <h3>{service.name}</h3>
+                  <p set:html={service.description} />
+                </div>
+              ))
+            }
           </aside>
 
           <aside class="skills">
@@ -203,6 +207,8 @@ const skills = [
 
 <style lang="scss">
   main {
+    @apply flex flex-col items-center min-h-screen;
+
     background: rgb(248, 249, 250);
     background: linear-gradient(
       90deg,
@@ -211,14 +217,14 @@ const skills = [
       rgba(222, 226, 230, 1) 100%
     );
 
-    section.first {
+    section.about {
       @apply flex flex-col items-center justify-center h-screen w-full;
 
-      @media(max-width: 768px) {
+      @media (max-width: 768px) {
         @apply h-full pt-5 pb-10;
       }
 
-      section.hello {
+      section.about-container {
         @apply flex flex-col justify-between w-2/4 p-10 h-min p-10 shadow-xl bg-white duration-700;
 
         &:hover {
@@ -230,7 +236,17 @@ const skills = [
           @apply w-11/12;
         }
 
-        span.contact {
+        div.hello {
+          div.avatar-container {
+            @apply flex items-center mb-5 flex-col sm:flex-row text-center sm:text-left;
+
+            figure.avatar {
+              @apply sm:mr-6 mb-6 sm:mb-0;
+            }
+          }
+        }
+
+        div.contact {
           @apply text-lg mt-10;
 
           a#email {
@@ -253,9 +269,9 @@ const skills = [
             @apply underline cursor-pointer translate-x-1 text-stone-600;
           }
 
-        @media (max-width: 640px) {
-          @apply mx-0 my-3;
-        }
+          @media (max-width: 640px) {
+            @apply mx-0 my-3;
+          }
 
           svg {
             @apply mr-2;
@@ -267,59 +283,59 @@ const skills = [
     section.services {
       @apply flex items-center bg-white w-full py-10;
 
-    section.services-container {
-      h2 {
-        @apply mb-10;
-      }
+      section.services-container {
+        h2 {
+          @apply mb-10;
+        }
 
-      div.services-content {
-        @apply flex flex-wrap justify-center items-center;
+        div.services-content {
+          @apply flex flex-wrap justify-center items-center;
 
-        aside.services {
-          @apply w-3/12;
+          aside.services {
+            @apply w-3/12;
 
-          @media (max-width: 768px) {
+            @media (max-width: 768px) {
               @apply w-10/12;
             }
 
-          div.service {
-            @apply mb-5;
+            div.service {
+              @apply mb-5;
 
-            h3 {
-              @apply text-stone-800;
-            }
+              h3 {
+                @apply text-stone-800;
+              }
 
-            p {
-              @apply text-stone-500;
+              p {
+                @apply text-stone-500;
+              }
             }
           }
-        }
 
-        aside.skills {
-          @apply flex flex-wrap justify-center float-left w-full max-w-sm ml-20;
+          aside.skills {
+            @apply flex flex-wrap justify-center float-left w-full max-w-sm ml-20;
 
-          @media(max-width: 768px) {
+            @media (max-width: 768px) {
               @apply ml-0;
             }
 
-          div.skill {
-            @apply flex items-center justify-center max-h-12 bg-stone-300 p-4 m-1.5 rounded-3xl font-bold text-sm duration-500;
+            div.skill {
+              @apply flex items-center justify-center max-h-12 bg-stone-300 p-4 m-1.5 rounded-3xl font-bold text-sm duration-500;
 
-            &:hover {
-              @apply bg-stone-500 text-stone-200;
-            }
+              &:hover {
+                @apply bg-stone-500 text-stone-200;
+              }
 
-            i {
-              font-size: 28px;
+              i {
+                font-size: 28px;
 
-              + p {
-                @apply ml-3;
+                + p {
+                  @apply ml-3;
+                }
               }
             }
           }
         }
       }
-    }
     }
   }
 </style>
