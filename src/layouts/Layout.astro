@@ -13,6 +13,11 @@ const { title } = Astro.props;
     <meta name="description" content="Felipe Heredia Desenvolvedor Backend" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
@@ -51,11 +56,15 @@ const { title } = Astro.props;
   }
 
   h2 {
+    @apply text-3xl font-bold mb-4 text-center;
+  }
+
+  h3 {
     @apply text-2xl font-bold mb-4;
   }
 
   h4 {
-    @apply text-lg font-bold mb-3
+    @apply text-lg font-bold mb-3;
   }
 
   %avatar-styles {
