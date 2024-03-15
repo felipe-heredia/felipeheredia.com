@@ -49,11 +49,21 @@ const services = [
   },
 ];
 
-const preferredLocale = Astro.preferredLocale
+const certifications = [
+  {
+    link: "https://www.credly.com/badges/e871a3ed-adc7-4ea5-981f-7b39998bee6b",
+    image:
+      "https://images.credly.com/size/340x340/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png",
+    text: "AWS Certified Cloud Practitioner",
+  },
+];
 
-if (preferredLocale !== 'en') {
-  const relativeUrl = getRelativeLocaleUrl(Astro.preferredLocale)
-  return Astro.redirect(relativeUrl)
+const preferredLocale = Astro.preferredLocale;
+
+if (preferredLocale !== "en") {
+  const relativeUrl = getRelativeLocaleUrl(Astro.preferredLocale);
+  console.log(preferredLocale, relativeUrl);
+  return Astro.redirect(relativeUrl);
 }
 ---
 
@@ -71,7 +81,6 @@ if (preferredLocale !== 'en') {
                 alt="Felipe Heredia, depicted in the image"
               />
             </figure>
-
 
             <aside>
               <h3 class="mb-2">
@@ -182,7 +191,7 @@ if (preferredLocale !== 'en') {
       </section>
     </section>
 
-    <section class="services">
+    <section class="info-container services">
       <section class="services-container">
         <h2>My services</h2>
 
@@ -211,20 +220,29 @@ if (preferredLocale !== 'en') {
         </div>
       </section>
     </section>
+
+    <section class="info-container certifications">
+      <section class="certifications-container">
+        <h2>My certifications</h2>
+
+        <div class="certifications-content">
+          {
+            certifications.map(certification => (
+              <a class="certification" href={certification.link} target="_blank">
+                <img width="175px" src={certification.image} alt="" />
+                <b>{certification.text}</b>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+    </section>
   </main>
 </Layout>
 
 <style lang="scss">
   main {
     @apply flex flex-col items-center min-h-screen;
-
-    background: rgb(248, 249, 250);
-    background: linear-gradient(
-      90deg,
-      rgba(248, 249, 250, 1) 0%,
-      rgba(233, 236, 239, 1) 52%,
-      rgba(222, 226, 230, 1) 100%
-    );
 
     section.about {
       @apply flex flex-col items-center justify-center h-screen w-full;
@@ -289,59 +307,79 @@ if (preferredLocale !== 'en') {
       }
     }
 
-    section.services {
-      @apply flex items-center bg-white w-full py-10;
+    section.info-container {
+      @apply flex items-center justify-center bg-white w-full py-10;
 
-      section.services-container {
-        h2 {
-          @apply mb-10;
-        }
+      h2 {
+        @apply mb-10;
+      }
+    }
 
-        div.services-content {
-          @apply flex flex-wrap justify-center items-center;
+    section.services section.services-container {
+      div.services-content {
+        @apply flex flex-wrap justify-center items-center;
 
-          aside.services {
-            @apply w-3/12;
+        aside.services {
+          @apply w-3/12;
 
-            @media (max-width: 768px) {
-              @apply w-10/12;
+          @media (max-width: 768px) {
+            @apply w-10/12;
+          }
+
+          div.service {
+            @apply mb-5;
+
+            h3 {
+              @apply text-stone-800;
             }
 
-            div.service {
-              @apply mb-5;
+            p {
+              @apply text-stone-500;
+            }
+          }
+        }
 
-              h3 {
-                @apply text-stone-800;
-              }
+        aside.skills {
+          @apply flex flex-wrap justify-center float-left w-full max-w-sm ml-20;
 
-              p {
-                @apply text-stone-500;
+          @media (max-width: 768px) {
+            @apply ml-0;
+          }
+
+          div.skill {
+            @apply flex items-center justify-center max-h-12 bg-stone-300 p-4 m-1.5 rounded-3xl font-bold text-sm duration-500;
+
+            &:hover {
+              @apply bg-stone-500 text-stone-200;
+            }
+
+            i {
+              font-size: 28px;
+
+              + p {
+                @apply ml-3;
               }
             }
           }
+        }
+      }
+    }
 
-          aside.skills {
-            @apply flex flex-wrap justify-center float-left w-full max-w-sm ml-20;
+    section.certifications {
+      @apply bg-transparent;
 
-            @media (max-width: 768px) {
-              @apply ml-0;
-            }
+      section.certifications-container div.certifications-content {
+        @apply flex flex-wrap justify-center items-center;
 
-            div.skill {
-              @apply flex items-center justify-center max-h-12 bg-stone-300 p-4 m-1.5 rounded-3xl font-bold text-sm duration-500;
+        a.certification {
+          @apply flex flex-col items-center rounded-3xl p-6 transition-all duration-700;
 
-              &:hover {
-                @apply bg-stone-500 text-stone-200;
-              }
+          &:hover {
+            @apply bg-slate-300;
+          }
 
-              i {
-                font-size: 28px;
-
-                + p {
-                  @apply ml-3;
-                }
-              }
-            }
+          b {
+            @apply max-w-40 text-center mt-4;
           }
         }
       }

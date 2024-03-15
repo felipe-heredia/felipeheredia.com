@@ -48,6 +48,14 @@ const services = [
   },
 ];
 
+const certifications = [
+  {
+    link: "https://www.credly.com/badges/e871a3ed-adc7-4ea5-981f-7b39998bee6b",
+    image:
+      "https://images.credly.com/size/340x340/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png",
+    text: "AWS Certified Cloud Practitioner",
+  },
+];
 ---
 
 <Layout title="Felipe Heredia | Desenvolvedor Backend">
@@ -174,7 +182,7 @@ const services = [
       </section>
     </section>
 
-    <section class="services">
+    <section class="info-container services">
       <section class="services-container">
         <h2>Meus serviços</h2>
 
@@ -203,20 +211,29 @@ const services = [
         </div>
       </section>
     </section>
+
+    <section class="info-container certifications">
+      <section class="certifications-container">
+        <h2>Minhas certificações</h2>
+
+        <div class="certifications-content">
+          {
+            certifications.map(certification => (
+              <a class="certification" href={certification.link} target="_blank">
+                <img width="175px" src={certification.image} alt="" />
+                <b>{certification.text}</b>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+    </section>
   </main>
 </Layout>
 
 <style lang="scss">
   main {
     @apply flex flex-col items-center min-h-screen;
-
-    background: rgb(248, 249, 250);
-    background: linear-gradient(
-      90deg,
-      rgba(248, 249, 250, 1) 0%,
-      rgba(233, 236, 239, 1) 52%,
-      rgba(222, 226, 230, 1) 100%
-    );
 
     section.about {
       @apply flex flex-col items-center justify-center h-screen w-full;
@@ -281,59 +298,77 @@ const services = [
       }
     }
 
-    section.services {
-      @apply flex items-center bg-white w-full py-10;
+    section.info-container {
+      @apply flex items-center justify-center bg-white w-full py-10;
 
-      section.services-container {
-        h2 {
-          @apply mb-10;
+      h2 {
+        @apply mb-10;
+      }
+    }
+
+    section.services section.services-container div.services-content {
+      @apply flex flex-wrap justify-center items-center;
+
+      aside.services {
+        @apply w-3/12;
+
+        @media (max-width: 768px) {
+          @apply w-10/12;
         }
 
-        div.services-content {
-          @apply flex flex-wrap justify-center items-center;
+        div.service {
+          @apply mb-5;
 
-          aside.services {
-            @apply w-3/12;
-
-            @media (max-width: 768px) {
-              @apply w-10/12;
-            }
-
-            div.service {
-              @apply mb-5;
-
-              h3 {
-                @apply text-stone-800;
-              }
-
-              p {
-                @apply text-stone-500;
-              }
-            }
+          h3 {
+            @apply text-stone-800;
           }
 
-          aside.skills {
-            @apply flex flex-wrap justify-center float-left w-full max-w-sm ml-20;
+          p {
+            @apply text-stone-500;
+          }
+        }
+      }
 
-            @media (max-width: 768px) {
-              @apply ml-0;
+      aside.skills {
+        @apply flex flex-wrap justify-center float-left w-full max-w-sm ml-20;
+
+        @media (max-width: 768px) {
+          @apply ml-0;
+        }
+
+        div.skill {
+          @apply flex items-center justify-center max-h-12 bg-stone-300 p-4 m-1.5 rounded-3xl font-bold text-sm duration-500;
+
+          &:hover {
+            @apply bg-stone-500 text-stone-200;
+          }
+
+          i {
+            font-size: 28px;
+
+            + p {
+              @apply ml-3;
             }
+          }
+        }
+      }
+    }
 
-            div.skill {
-              @apply flex items-center justify-center max-h-12 bg-stone-300 p-4 m-1.5 rounded-3xl font-bold text-sm duration-500;
+    section.certifications {
+      @apply bg-transparent;
 
-              &:hover {
-                @apply bg-stone-500 text-stone-200;
-              }
+      section.certifications-container div.certifications-content {
+        @apply flex flex-wrap justify-center items-center;
 
-              i {
-                font-size: 28px;
+        a.certification {
+          @apply flex flex-col items-center rounded-3xl p-6 transition-all duration-700;
 
-                + p {
-                  @apply ml-3;
-                }
-              }
-            }
+          &:hover {
+            @apply bg-slate-300;
+          }
+
+          b {
+            @apply max-w-40 text-center mt-4;
           }
         }
       }
