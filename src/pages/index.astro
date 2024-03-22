@@ -1,5 +1,4 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "../layouts/Layout.astro";
 
 const skills = [
@@ -57,14 +56,6 @@ const certifications = [
     text: "AWS Certified Cloud Practitioner",
   },
 ];
-
-const preferredLocale = Astro.preferredLocale;
-
-if (preferredLocale !== "en") {
-  const relativeUrl = getRelativeLocaleUrl(Astro.preferredLocale);
-  console.log(preferredLocale, relativeUrl);
-  return Astro.redirect(relativeUrl);
-}
 ---
 
 <Layout title="Felipe Heredia | Backend Developer">
