@@ -1,0 +1,38 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+
+const { title, description, publishDate, author } = Astro.props.frontmatter;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body>
+    <main>
+      <article>
+        <section class="article-head">
+          <h1 class="title">{title}</h1>
+          <em>Written by: {author}</em>
+        </section>
+
+        <div class="article-body">
+          Published on: {publishDate && <time>{publishDate}</time>}
+          <hr />
+          <slot />
+        </div>
+      </article>
+    </main>
+  </body>
+</html>
+
+<style lang="scss">
+main article section.article-head {
+  h1.title {
+    @apply font-bold text-3xl;
+  font-family: "Encode Sans Expanded", sans-serif;
+ }
+}
+</style>

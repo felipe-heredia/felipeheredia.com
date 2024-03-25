@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900');
+
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+
+  background: rgb(248, 249, 250);
+  background: linear-gradient(
+    90deg,
+    rgba(248, 249, 250, 1) 0%,
+    rgba(233, 236, 239, 1) 52%,
+    rgba(222, 226, 230, 1) 100%
+  );
+
+
+  -webkit-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+html {
+  font-family: system-ui, sans-serif;
+}
+
+code {
+  font-family:
+    Menlo,
+    Monaco,
+    Lucida Console,
+    Liberation Mono,
+    DejaVu Sans Mono,
+    Bitstream Vera Sans Mono,
+    Courier New,
+    monospace;
+}
+
+h2 {
+  @apply text-3xl font-bold mb-4;
+}
+
+h3 {
+  @apply text-2xl font-bold mb-4;
+}
+
+h4 {
+  @apply text-xl font-bold mb-3;
+}
+
+%avatar-styles {
+  border-radius: 40%;
+}
+
+figure.avatar {
+  @apply border-8 border-white bg-white w-36 shadow-xl;
+
+  @extend %avatar-styles;
+
+  & img {
+    @extend %avatar-styles;
+  }
+}
+
+mark {
+  @apply bg-amber-200;
+}
