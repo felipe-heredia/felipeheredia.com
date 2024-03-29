@@ -20,6 +20,9 @@ dependencies:
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
+  lucide:
+    specifier: ^0.363.0
+    version: 0.363.0
   sass:
     specifier: ^1.72.0
     version: 1.72.0
@@ -2457,6 +2460,10 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+    dev: false
+
+  /lucide@0.363.0:
+    resolution: {integrity: sha512-/AAsZdclXMOn4Q3wWw6kcyYHzwyafoRyEOCD9bVlhRTU5rxJ3Gs2Hj70xwOhK2z14Iukmon6dTvgzhkoj21YZg==}
     dev: false
 
   /magic-string@0.30.8:
