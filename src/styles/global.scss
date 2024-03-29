@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900');
+:root {
+  --width-full: 1100px;
+}
 
 body {
   margin: 0;
@@ -12,7 +14,6 @@ body {
     rgba(233, 236, 239, 1) 52%,
     rgba(222, 226, 230, 1) 100%
   );
-
 
   -webkit-user-select: none;
   -moz-user-select: -moz-none;
@@ -34,6 +35,10 @@ code {
     Bitstream Vera Sans Mono,
     Courier New,
     monospace;
+}
+
+h1 {
+  @apply font-bold text-3xl;
 }
 
 h2 {

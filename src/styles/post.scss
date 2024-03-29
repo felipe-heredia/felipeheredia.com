@@ -1,0 +1,80 @@
+main {
+  @apply min-h-screen;
+
+  article {
+    @apply m-auto max-w-full px-8;
+
+    header.article-head {
+      @apply items-center justify-center text-center w-full mt-10 mb-5 px-5;
+
+      h1.title {
+        @apply text-4xl mb-4;
+      }
+
+      div.info {
+        @apply flex flex-col sm:flex-row justify-center items-center text-base text-slate-800;
+
+        span {
+          @apply flex items-center justify-center text-sm text-slate-700;
+
+          svg {
+            @apply mr-1.5;
+          }
+
+          &:not(:last-child) {
+            @apply mb-2 sm:mb-0 sm:mr-3;
+          }
+        }
+      }
+    }
+
+    section.article-content-container {
+      @apply m-auto max-w-screen-md;
+
+      div.article-content {
+        @apply px-5 mt-4;
+
+        p {
+          @apply mb-4;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          @apply text-center;
+        }
+      }
+    }
+  }
+
+  footer {
+    @apply flex items-center justify-between m-auto max-w-full relative;
+
+    padding: 7.5rem 2rem 4rem 1rem;
+    width: var(--width-full);
+    flex-flow: row wrap;
+
+    div.links {
+      @apply flex;
+
+      a {
+        @apply transition-all duration-700;
+
+        &:not(:last-child) {
+          @apply mr-3;
+        }
+
+        &:hover {
+          @apply opacity-75 scale-105;
+        }
+
+        i {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

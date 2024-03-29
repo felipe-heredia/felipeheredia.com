@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+
+import PostLayout from '@/layouts/PostLayout.astro'
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+// 2. For your template, you can get the entry directly from the prop
+const { entry } = Astro.props;
+const postData = entry.data
+
+const { Content } = await entry.render();
+---
+
+<PostLayout
+  title={postData.title}
+  description={postData.description}
+  publish_date={postData.publish_date}
+  tag={postData.tag}
+  content={entry.body}
+  lang="pt-br"
+>
+  <Content />
+</PostLayout>

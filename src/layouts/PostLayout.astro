@@ -1,38 +1,103 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
+import { Calendar, Tag, Clock, Mail } from "lucide";
 
-const { title, description, publishDate, author } = Astro.props.frontmatter;
+import LucideIcon from "@/components/lucide-icon.astro";
+import "@/styles/post.scss";
+import BaseHead from "@/components/BaseHead.astro";
+import { readingTime, formatDate, PostTag, type Lang } from "@/lib/utils";
+
+interface Props {
+  title: string;
+  description: string;
+  publish_date: string;
+  tag: PostTag;
+  content: string;
+  lang: Lang;
+}
+
+const { title, description, publish_date, tag, content, lang } = Astro.props;
+
+const footer_links = [
+  {
+    iconClass: "devicon-github-original",
+    href: "https://github.com/felipe-heredia",
+  },
+  {
+    iconClass: "devicon-linkedin-plain",
+    href: "https://linkedin.com/in/f-heredia",
+  },
+  {
+    iconClass: "devicon-twitter-plain",
+    href: "https://twitter.com/_felipesuri",
+  },
+  {
+    lucideIcon: Mail,
+    href: "mailto:hello@felipeheredia.com",
+  },
+];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} lang={lang} />
   </head>
 
   <body>
     <main>
       <article>
-        <section class="article-head">
+        <header class="article-head">
           <h1 class="title">{title}</h1>
-          <em>Written by: {author}</em>
-        </section>
 
-        <div class="article-body">
-          Published on: {publishDate && <time>{publishDate}</time>}
-          <hr />
-          <slot />
-        </div>
+          <div class="info">
+            <span>
+              <LucideIcon icon={Calendar} width="14px" />
+              <time datetime={publish_date}>
+                {formatDate(new Date(publish_date), "MMM dd, y", lang)}
+              </time>
+            </span>
+
+            <span class="uppercase">
+              <LucideIcon icon={Tag} width="14px" />
+              {tag}
+            </span>
+
+            <span>
+              <LucideIcon icon={Clock} width="14px" />
+              {readingTime(content, lang)}
+            </span>
+          </div>
+        </header>
+
+        <hr />
+
+        <section class="article-content-container">
+          <div class="article-content">
+            <slot />
+          </div>
+        </section>
       </article>
+
+      <footer>
+        <p class="copyright">
+          ©
+          {new Date().getFullYear()}
+          · Felipe Heredia
+        </p>
+
+        <div class="links">
+          {
+            footer_links.map(link => (
+              <a href={link.href} target="_blank">
+                {link.iconClass && <i class={link.iconClass} />}
+                {link.lucideIcon && (
+                  <LucideIcon icon={link.lucideIcon} width="20px" stroke-width="1" />
+                )}
+              </a>
+            ))
+          }
+        </div>
+      </footer>
     </main>
   </body>
 </html>
-
-<style lang="scss">
-main article section.article-head {
-  h1.title {
-    @apply font-bold text-3xl;
-  font-family: "Encode Sans Expanded", sans-serif;
- }
-}
-</style>
