@@ -21,7 +21,7 @@ export function readingTime(html: string, lang: Lang): string {
   const readingTimeMinutes = wordCount / 200;
   const roundedReadingTime = Math.ceil(readingTimeMinutes);
 
-  const readTimeTexts = { en: "read-time", "pt-br": "tempo de leitura" };
+  const readTimeTexts = { en: "read time", "pt-br": "tempo de leitura" };
 
   return `${roundedReadingTime} ${readTimeTexts[lang]}`;
 }

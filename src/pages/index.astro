@@ -1,10 +1,10 @@
 ---
-import { format } from "date-fns";
+import { formatDate } from "@/lib/utils";
+import "@/styles/home.scss";
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-import "../styles/home.scss";
-import Layout from "../layouts/Layout.astro";
-
-const posts = await Astro.glob("./blog/*.mdx");
+const lang = "en";
 
 const skills = [
   {
@@ -61,9 +61,13 @@ const certifications = [
     text: "AWS Certified Cloud Practitioner",
   },
 ];
+
+const blogPosts = await getCollection("blog", ({ id, data }) => {
+  return id.startsWith("en/") && data.publish_date;
+});
 ---
 
-<Layout title="Felipe Heredia | Backend Developer" description="Lorem ipsum">
+<Layout title="Felipe Heredia | Backend Developer" description="Lorem ipsum" lang={lang}>
   <main>
     <section class="about">
       <section class="about-container">
@@ -240,20 +244,20 @@ const certifications = [
 
         <ul class="posts-list">
           {
-            posts.map(post => (
+            blogPosts.map(post => (
               <li class="post">
-                <a href={post.url}>
+                <a href={`/blog/${post.slug}`}>
                   <figure>
                     <img
-                      src={post.frontmatter.image}
-                      alt={post.frontmatter.image_alt}
+                      src={post.data.image}
+                      alt={post.data.image_alt}
                       width="450"
                       height="250"
                     />
 
                     <div class="post-content">
-                      <h4>{post.frontmatter.title}</h4>
-                      <p>{post.frontmatter.description}</p>
+                      <h4>{post.data.title}</h4>
+                      <p>{post.data.description}</p>
 
                       <footer>
                         <span>
@@ -269,13 +273,17 @@ const certifications = [
                             stroke-linejoin="round"
                             class="lucide lucide-calendar"
                           >
-                              <path d="M8 2v4" />
-                              <path d="M16 2v4" />
-                              <rect width="18" height="18" x="3" y="4" rx="2" />
-                              <path d="M3 10h18" />
+                            <path d="M8 2v4" />
+                            <path d="M16 2v4" />
+                            <rect width="18" height="18" x="3" y="4" rx="2" />
+                            <path d="M3 10h18" />
                           </svg>
-                          <time datetime={post.frontmatter.publish_date}>
-                            {format(new Date(post.frontmatter.publish_date), "MMM dd, y")}
+                          <time datetime={post.data.publish_date}>
+                            {formatDate(
+                              new Date(post.data.publish_date),
+                              "MMM dd, y",
+                              lang,
+                            )}
                           </time>
                         </span>
                         <span>
@@ -291,10 +299,10 @@ const certifications = [
                             stroke-linejoin="round"
                             class="lucide lucide-tag"
                           >
-                              <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
-                              <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+                            <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+                            <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
                           </svg>
-                          {post.frontmatter.tag}
+                          {post.data.tag}
                         </span>
                       </footer>
                     </div>
@@ -309,5 +317,4 @@ const certifications = [
   </main>
 </Layout>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
