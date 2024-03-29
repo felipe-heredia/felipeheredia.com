@@ -1,7 +1,21 @@
 ---
-import "../styles/global.scss";
+import type { Lang } from "@/lib/utils";
+import "@/styles/global.scss";
 
-const { title, description } = Astro.props;
+interface Props {
+  title: string
+  description: string
+  lang: Lang
+}
+
+const { title, description, lang } = Astro.props;
+
+const roles = {
+  'en': 'Backend Developer',
+  'pt-br': 'Desenvolvedor Backend'
+}
+
+const role = roles[lang] || roles['en']
 ---
 
 <!-- Global Metadata -->
@@ -15,7 +29,7 @@ const { title, description } = Astro.props;
 />
 
 <!-- Primary Meta Tags -->
-<title>{title}</title>
+<title>{title} | Felipe Heredia - {role}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 <meta name="generator" content={Astro.generator} />
