@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { ptBR, enUS } from "date-fns/locale";
+import { Mail } from "lucide";
 
 export type Lang = "en" | "pt-br";
 
@@ -36,3 +37,22 @@ export function formatDate(date: Date, dateFormat: string, lang: Lang): string {
 
   return format(date, dateFormat, { locale });
 }
+
+export const footerLinks = [
+  {
+    iconClass: "devicon-github-original",
+    href: "https://github.com/felipe-heredia",
+  },
+  {
+    iconClass: "devicon-linkedin-plain",
+    href: "https://linkedin.com/in/f-heredia",
+  },
+  {
+    iconClass: "devicon-twitter-plain",
+    href: "https://twitter.com/_felipesuri",
+  },
+  {
+    lucideIcon: Mail,
+    href: "mailto:hello@felipeheredia.com",
+  },
+];

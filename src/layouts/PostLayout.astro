@@ -1,10 +1,11 @@
 ---
-import { Calendar, Tag, Clock, Mail } from "lucide";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { Calendar, Tag, Clock } from "lucide";
 
 import LucideIcon from "@/components/lucide-icon.astro";
 import "@/styles/post.scss";
 import BaseHead from "@/components/BaseHead.astro";
-import { readingTime, formatDate, PostTag, type Lang } from "@/lib/utils";
+import { readingTime, formatDate, footerLinks, PostTag, type Lang } from "@/lib/utils";
 
 interface Props {
   title: string;
@@ -16,25 +17,6 @@ interface Props {
 }
 
 const { title, description, publish_date, tag, content, lang } = Astro.props;
-
-const footer_links = [
-  {
-    iconClass: "devicon-github-original",
-    href: "https://github.com/felipe-heredia",
-  },
-  {
-    iconClass: "devicon-linkedin-plain",
-    href: "https://linkedin.com/in/f-heredia",
-  },
-  {
-    iconClass: "devicon-twitter-plain",
-    href: "https://twitter.com/_felipesuri",
-  },
-  {
-    lucideIcon: Mail,
-    href: "mailto:hello@felipeheredia.com",
-  },
-];
 ---
 
 <!doctype html>
@@ -67,6 +49,17 @@ const footer_links = [
               {readingTime(content, lang)}
             </span>
           </div>
+
+          <a href={getRelativeLocaleUrl(lang, "/")}>
+            <figure class="avatar">
+              <img
+                width="145px"
+                height="145px"
+                src="https://avatars.githubusercontent.com/u/50281523?v=4"
+                alt="Felipe Heredia, depicted in the image"
+              />
+            </figure>
+          </a>
         </header>
 
         <hr />
@@ -78,16 +71,16 @@ const footer_links = [
         </section>
       </article>
 
-      <footer>
-        <p class="copyright">
+      <footer class="global-footer">
+        <a class="copyright" href={getRelativeLocaleUrl(lang, "/")}>
           ©
           {new Date().getFullYear()}
           · Felipe Heredia
-        </p>
+        </a>
 
         <div class="links">
           {
-            footer_links.map(link => (
+            footerLinks.map(link => (
               <a href={link.href} target="_blank">
                 {link.iconClass && <i class={link.iconClass} />}
                 {link.lucideIcon && (

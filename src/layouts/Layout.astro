@@ -1,11 +1,13 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
+import BaseHead from "@/components/BaseHead.astro";
+import LucideIcon from "@/components/lucide-icon.astro";
 import type { Lang } from "@/lib/utils";
+import { footerLinks } from "@/lib/utils";
 
 interface Props {
   title: string;
-  description: string
-  lang: Lang
+  description: string;
+  lang: Lang;
 }
 
 const { title, description, lang } = Astro.props;
@@ -19,5 +21,26 @@ const { title, description, lang } = Astro.props;
 
   <body>
     <slot />
+
+    <footer class="global-footer">
+      <p class="copyright">
+        ©
+        {new Date().getFullYear()}
+        · Felipe Heredia
+      </p>
+
+      <div class="links">
+        {
+          footerLinks.map(link => (
+            <a href={link.href} target="_blank">
+              {link.iconClass && <i class={link.iconClass} />}
+              {link.lucideIcon && (
+                <LucideIcon icon={link.lucideIcon} width="20px" stroke-width="1" />
+              )}
+            </a>
+          ))
+        }
+      </div>
+    </footer>
   </body>
 </html>
