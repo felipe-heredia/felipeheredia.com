@@ -147,9 +147,12 @@ main {
 
     ul.posts-list {
       li.post {
-        @apply w-80 rounded-2xl transition-all duration-700;
+        @apply w-80 m-3 rounded-2xl transition-all duration-700;
 
         box-shadow: 1px 4px 8px #ccc;
+        break-inside: avoid;
+        position: relative;
+        display: inline-block;
 
         img {
           @apply rounded-t-2xl;

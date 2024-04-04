@@ -1,0 +1,45 @@
+---
+title: "O que é busca binária?"
+description: "Explicando de forma rápida o que é busca binária"
+author: "Felipe Heredia"
+publish_date: "2020-06-16T10:00:00.000Z"
+image: "https://images.unsplash.com/photo-1558420034-e98aa2ce8cac?q=80&w=1996&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+image_alt: "Homem olhando através de um monóculo"
+tag: "Algorítimos"
+slug: "busca-binaria"
+---
+
+Explicando um pouco sobre busca binária e como funciona
+
+Recentemente desenvolvi um [projeto sobre busca binária](https://github.com/felipesuri/binary-search) e decidi compartilhar como ela funciona e o motivo para ser utilizada.
+
+**Busca binária** é um algoritmo de busca em vetores que segue o paradigma de divisão e conquista. Ela parte do pressuposto de que o vetor está ordenado e realiza sucessivas divisões do espaço de busca comparando o elemento buscado (chave) com o elemento no meio do vetor. Se o elemento do meio do vetor for a chave, a busca termina com sucesso. Caso contrário, se o do meio vier antes do elemento buscado, então a busca continua na metade posterior do vetor. E finalmente, se o do meio vier depois da chave, a busca continua na metade anterior do vetor. - [Wikipedia](https://pt.wikipedia.org/wiki/Pesquisa_bin%C3%A1ria)
+
+Essa explicação ficou bastante complexa, então vamos explicar de uma melhor forma e com código (em JavaScript, claro 🥰).
+
+Para a busca binária funcionar, **precisamos ter um Array ordenado**, pois, dependendo do número procurado (target) será feita uma busca na direita ou esquerda, veja o exemplo:
+
+```javascript
+const elements = [1, 77, 3, 5, 9, 10]
+const target = 9
+```
+
+Neste exemplo teríamos um erro, pois o objeto do meio seria o 77 que é maior que o `target` que é 9, portanto a nossa função faria uma busca na direita porém não encontraria já que o target 9 está depois do 77.
+
+```javascript
+const elements = [1, 2, 3, 4, 5]
+const target = 3
+```
+
+Neste exemplo, receberíamos como retorno o número 2, visto que o `target = 3` está nessa posição (lembrando que array inicia com a posição 0, ou seja nesse exemplo a posição do número um equivale a 0);
+
+Nesse exemplo a elemento do meio já caiu no target procurado, portanto não foi preciso dividir o array em duas partes, então vamos para um exemplo que será necessário dividir.
+
+```javascript
+const elements = [0, 2, 5, 9]
+const target = 9
+```
+
+Nesse último exemplo, o array será divido até encontrar o target. Utilizando o método: `Math.floor(left + right / 2)` o meio será arredondado para baixo, ou seja o meio seria na posição 1 ao invés de 1,5.
+
+Já que o nosso target é maior do que a posição do meio então dividiremos novamente, porém agora, na direita e será feito um novo array `[5, 9]` e assim encontraremos nosso target.
