@@ -26,6 +26,18 @@ main {
           }
         }
       }
+
+      figure.avatar {
+        @apply fixed top-5 left-5 w-20 border-4 hover:cursor-pointer transition-all duration-700;
+
+        &:hover {
+          @apply scale-105;
+        }
+
+        & img {
+          @apply w-20;
+        }
+      }
     }
 
     section.article-content-container {
@@ -45,34 +57,6 @@ main {
         h5,
         h6 {
           @apply text-center;
-        }
-      }
-    }
-  }
-
-  footer {
-    @apply flex items-center justify-between m-auto max-w-full relative;
-
-    padding: 7.5rem 2rem 4rem 1rem;
-    width: var(--width-full);
-    flex-flow: row wrap;
-
-    div.links {
-      @apply flex;
-
-      a {
-        @apply transition-all duration-700;
-
-        &:not(:last-child) {
-          @apply mr-3;
-        }
-
-        &:hover {
-          @apply opacity-75 scale-105;
-        }
-
-        i {
-          font-size: 18px;
         }
       }
     }

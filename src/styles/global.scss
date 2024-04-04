@@ -70,3 +70,31 @@ figure.avatar {
 mark {
   @apply bg-amber-200;
 }
+
+footer.global-footer {
+  @apply flex items-center justify-between m-auto max-w-full relative;
+
+  padding: 3rem 2rem;
+  width: var(--width-full);
+  flex-flow: row wrap;
+
+  div.links {
+    @apply flex;
+
+    a {
+      @apply transition-all duration-700;
+
+      &:not(:last-child) {
+        @apply mr-3;
+      }
+
+      &:hover {
+        @apply opacity-75 scale-105;
+      }
+
+      i {
+        font-size: 18px;
+      }
+    }
+  }
+}

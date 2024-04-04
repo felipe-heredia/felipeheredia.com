@@ -143,6 +143,8 @@ main {
   }
 
   section.posts section.posts-container {
+    @apply pb-10;
+
     ul.posts-list {
       li.post {
         @apply w-80 rounded-2xl transition-all duration-700;
