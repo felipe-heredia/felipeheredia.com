@@ -57,3 +57,48 @@ export const footerLinks = [
     href: "mailto:hello@felipeheredia.com",
   },
 ];
+
+export const skills = [
+  {
+    name: "Node.js",
+    iconClass: "devicon-nodejs-plain colored",
+  },
+  { iconClass: "devicon-amazonwebservices-plain colored" },
+  {
+    name: "Nest.js",
+    iconClass: "devicon-nestjs-plain colored",
+  },
+  {
+    name: "TypeScript",
+    iconClass: "devicon-typescript-plain colored",
+  },
+  {
+    name: "Rust",
+    iconClass: "devicon-rust-plain colored",
+  },
+  {
+    name: "Docker",
+    iconClass: "devicon-docker-plain colored",
+  },
+  {
+    name: "PostgreSQL",
+    iconClass: "devicon-postgresql-plain colored",
+  },
+  {
+    name: "Neovim",
+    iconClass: "devicon-neovim-plain colored",
+  },
+  {
+    name: "WordPress",
+    iconClass: "devicon-wordpress-plain colored",
+  },
+];
+
+export const certifications = [
+  {
+    link: "https://www.credly.com/badges/e871a3ed-adc7-4ea5-981f-7b39998bee6b",
+    image:
+      "https://images.credly.com/size/340x340/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png",
+    text: "AWS Certified Cloud Practitioner",
+  },
+];

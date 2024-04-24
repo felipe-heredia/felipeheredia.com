@@ -1,73 +1,36 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { getCollection } from "astro:content";
-
-import "../../styles/home.scss";
-import Layout from "../../layouts/Layout.astro";
 import { format } from "date-fns";
 
-const skills = [
-  {
-    iconClass: "devicon-amazonwebservices-plain colored",
-  },
-  {
-    name: "Node.js",
-    iconClass: "devicon-nodejs-plain colored",
-  },
-  {
-    name: "Nest.js",
-    iconClass: "devicon-nestjs-plain colored",
-  },
-  {
-    name: "TypeScript",
-    iconClass: "devicon-typescript-plain colored",
-  },
-  {
-    name: "Rust",
-    iconClass: "devicon-rust-plain colored",
-  },
-  {
-    name: "Docker",
-    iconClass: "devicon-docker-plain colored",
-  },
-  {
-    name: "PostgreSQL",
-    iconClass: "devicon-postgresql-plain colored",
-  },
-  {
-    name: "WordPress",
-    iconClass: "devicon-wordpress-plain colored",
-  },
-];
+import "@/styles/home.scss";
+
+import Layout from "@/layouts/Layout.astro";
+import { skills, certifications } from "@/lib/utils";
 
 const services = [
   {
     name: "Desenvolvimento de Software",
     description:
-      "Lorem ipsum <mark>sollicitudin</mark> neque hac tincidunt ad praesent himenaeos pretium sem <small>libero</small>, varius torquent donec bibendum nullam dolor nisl at <ins>sollicitudin</ins> vivamus. id nisi ligula condimentum elit, sodales litora malesuada maecenas praesent, urna elementum risus.",
+      "Transformando <b>ideias em realidade</b>. Com mais de quatro anos de experiência em Desenvolvimento de Software, eu <mark>manejo minha espada de código</mark> para produzir soluções facilmente. Eu estou pronto para aprender e me adaptar, pronto para <i>conquistar qualquer desafio</i> que aparecer em meu caminho.",
   },
   {
     name: "Consultoria de Software",
     description:
-      "Lorem ipsum <i>sollicitudin</i> neque hac tincidunt ad praesent himenaeos pretium sem libero, varius <del>torquent</del> donec bibendum nullam dolor nisl at sollicitudin vivamus. id nisi ligula condimentum elit, sodales litora malesuada maecenas praesent, urna elementum <b>risus</b>.",
-  },
-];
-
-const certifications = [
-  {
-    link: "https://www.credly.com/badges/e871a3ed-adc7-4ea5-981f-7b39998bee6b",
-    image:
-      "https://images.credly.com/size/340x340/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png",
-    text: "AWS Certified Cloud Practitioner",
+      "Como um caçador de recompensas, eu navego no mundo digital, procurando por soluções sob medida para as suas necessidades. Com mais de quatro anos de experiências sólidas, eu irei buscar por soluções e melhorias. Adaptabilidade é a minha armadura, código é a minha ferramenta. Eu estou pronto para conquistar qualquer desafio que cruzar o meu caminho.",
   },
 ];
 
 const blogPosts = await getCollection("blog", ({ id, data }) => {
-  return id.startsWith("pt-br/") && data.publish_date
+  return id.startsWith("pt-br/") && data.publish_date;
 });
 ---
 
-<Layout title="Página Inicial" description="Lorem ipsum" lang="pt-br">
+<Layout
+  title="Página Inicial"
+  description="Desenvolvedor de Software com mais de quatro anos de experiência. Especializado em TypeScript."
+  lang="pt-br"
+>
   <main>
     <section class="about">
       <section class="about-container">
@@ -92,12 +55,11 @@ const blogPosts = await getCollection("blog", ({ id, data }) => {
           </div>
 
           <p>
-            Lorem ipsum dui condimentum quis fermentum viverra litora augue, pulvinar
-            class ultricies lectus litora dictumst etiam dictumst, lorem pretium senectus
-            morbi euismod nullam facilisis. sodales curabitur quisque interdum urna
-            conubia euismod morbi vehicula pharetra cubilia blandit lacinia ad,
-            pellentesque fames et dolor convallis et magna mollis aliquam in viverra
-            sagittis.
+            Eu sou <i>Felipe Heredia</i>, Desenvolvedor de Software com mais de
+            <b>quatro anos de experiência</b>. Sou especializado em
+            <b>TypeScript</b>, apesar de ter desenvolvido outros projetos com <b>Rust</b> e
+            outras <b>linguagens voltadas para backend</b>. Eu vivo em São Paulo, Brasil.
+            Eu gosto de resolver problemas - e me divertir fazendo isso. I use Vim btw.
           </p>
         </div>
 

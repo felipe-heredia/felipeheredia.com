@@ -1,3 +1,4 @@
+import { PostTag } from "@/lib/utils";
 import { z, defineCollection } from "astro:content";
 
 const blogCollection = defineCollection({
@@ -5,7 +6,7 @@ const blogCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    tag: z.enum(["Docker", "Algorítimos"]),
+    tag: z.nativeEnum(PostTag),
     publish_date: z.string().datetime(),
     image: z.string().url(),
     image_alt: z.string(),

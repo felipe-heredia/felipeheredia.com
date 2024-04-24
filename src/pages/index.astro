@@ -1,64 +1,23 @@
 ---
-import { formatDate } from "@/lib/utils";
-import "@/styles/home.scss";
-import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
+
+import "@/styles/home.scss";
+
+import Layout from "@/layouts/Layout.astro";
+import { formatDate, skills, services, certifications } from "@/lib/utils";
 
 const lang = "en";
 
-const skills = [
-  {
-    iconClass: "devicon-amazonwebservices-plain colored",
-  },
-  {
-    name: "Node.js",
-    iconClass: "devicon-nodejs-plain colored",
-  },
-  {
-    name: "Nest.js",
-    iconClass: "devicon-nestjs-plain colored",
-  },
-  {
-    name: "TypeScript",
-    iconClass: "devicon-typescript-plain colored",
-  },
-  {
-    name: "Rust",
-    iconClass: "devicon-rust-plain colored",
-  },
-  {
-    name: "Docker",
-    iconClass: "devicon-docker-plain colored",
-  },
-  {
-    name: "PostgreSQL",
-    iconClass: "devicon-postgresql-plain colored",
-  },
-  {
-    name: "WordPress",
-    iconClass: "devicon-wordpress-plain colored",
-  },
-];
-
-const services = [
+export const services = [
   {
     name: "Software development",
     description:
-      "Lorem ipsum <mark>sollicitudin</mark> neque hac tincidunt ad praesent himenaeos pretium sem <small>libero</small>, varius torquent donec bibendum nullam dolor nisl at <ins>sollicitudin</ins> vivamus. id nisi ligula condimentum elit, sodales litora malesuada maecenas praesent, urna elementum risus.",
+      "Transforming <b>ideas into reality</b>. With over four years of experience with Software Development, I <mark>wield my coding sword</mark> to craft solutions and facing monsters easily. I thrive on <i>learning and adapting</i>, ready to conquer any challenge that comes my way.",
   },
   {
     name: "Software consulting",
     description:
-      "Lorem ipsum <i>sollicitudin</i> neque hac tincidunt ad praesent himenaeos pretium sem libero, varius <del>torquent</del> donec bibendum nullam dolor nisl at sollicitudin vivamus. id nisi ligula condimentum elit, sodales litora malesuada maecenas praesent, urna elementum <b>risus</b>.",
-  },
-];
-
-const certifications = [
-  {
-    link: "https://www.credly.com/badges/e871a3ed-adc7-4ea5-981f-7b39998bee6b",
-    image:
-      "https://images.credly.com/size/340x340/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png",
-    text: "AWS Certified Cloud Practitioner",
+      "Like a bounty hunter tracking elusive targets, I navigate the digital landscape, hunting down solutions tailored to your needs. With over four years of solid experience, I'll seek out for solutions and enhancements. Adaptability is my armor, coding is my weapon. I stand ready to conquer any consulting challange that crosses my path.",
   },
 ];
 
@@ -67,7 +26,11 @@ const blogPosts = await getCollection("blog", ({ id, data }) => {
 });
 ---
 
-<Layout title="Felipe Heredia | Backend Developer" description="Lorem ipsum" lang={lang}>
+<Layout
+  title="Home"
+  description="Software Developer with over four years of experience. Specialized in TypeScript."
+  lang={lang}
+>
   <main>
     <section class="about">
       <section class="about-container">
@@ -92,12 +55,11 @@ const blogPosts = await getCollection("blog", ({ id, data }) => {
           </div>
 
           <p>
-            Lorem ipsum dui condimentum quis fermentum viverra litora augue, pulvinar
-            class ultricies lectus litora dictumst etiam dictumst, lorem pretium senectus
-            morbi euismod nullam facilisis. sodales curabitur quisque interdum urna
-            conubia euismod morbi vehicula pharetra cubilia blandit lacinia ad,
-            pellentesque fames et dolor convallis et magna mollis aliquam in viverra
-            sagittis.
+            I'm <i>Felipe Heredia</i>, a Software Developer with over
+            <b>four years of experience</b>. I specialize in
+            <b>TypeScript</b>, though I've dabbled in <b>Rust</b> and other
+            <b>backend-focused</b> languages. I live in São Paulo, Brazil. I enjoy solving
+            problems with code - and having fun doing it. I use Vim btw.
           </p>
         </div>
 
