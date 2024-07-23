@@ -73,8 +73,8 @@ export const skills = [
     iconClass: "devicon-typescript-plain colored",
   },
   {
-    name: "Rust",
-    iconClass: "devicon-rust-plain colored",
+    name: "Golang",
+    iconClass: "devicon-go-plain colored",
   },
   {
     name: "Docker",
@@ -87,6 +87,14 @@ export const skills = [
   {
     name: "Neovim",
     iconClass: "devicon-neovim-plain colored",
+  },
+  {
+    name: "Azure",
+    iconClass: "devicon-azure-plain colored",
+  },
+  {
+    name: "Rust",
+    iconClass: "devicon-rust-plain colored",
   },
   {
     name: "WordPress",
