@@ -22,7 +22,11 @@ const services = [
 ];
 
 const blogPosts = await getCollection("blog", ({ id, data }) => {
-  return id.startsWith("pt-br/") && data.publish_date;
+  const today = Date.now()
+  const publishDate = new Date(data.publish_date).getTime()
+  const postIsPublished = today >= publishDate
+
+  return id.startsWith("pt-br/") && postIsPublished;
 });
 ---
 

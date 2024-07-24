@@ -1,0 +1,88 @@
+---
+title: "Nest.js: O Poderoso framework do Node.js"
+description: "Nest.js é um framework Node.js utilizado em grande escala, criado em 2017 e inspirado em linguagens como C# e Java."
+author: "Felipe Heredia"
+publish_date: "2024-07-24T10:00:00.000Z"
+image: "/images/node_js/nest_js_framework_node_js.png"
+image_alt: "Nest.js Cat with Nest, Java and Node.js logos"
+tag: "Node.js"
+slug: "nest-js-poderoso-framework-node-js"
+---
+
+
+O [Nest.js](https://nestjs.com), ou simplesmente Nest,
+é um framework criado para construir aplicações Node.js eficientes, confiáveis e escaláveis.
+Escrito em TypeScript, trazendo os melhores conceitos de back-end para o ecossistema
+JavaScript, como a injeção de dependências.
+
+_Nest foi criado em 2017, por Kamil Mysliwiec_, um programador polonês.
+Segundo o próprio polonês Nest foi inspirado em Angular e Spring.
+
+7 anos após sua criação, o framework é _massivamente utilizado para construir aplicações
+back-end no ecossistema Node.js_, utilizando em grandes, médias e pequenas aplicações.
+Pode ser utilizando para o desenvolvimento de monolitos e de microsserviços.
+
+O framework possui uma lista com mais de 20 patrocinadores, dentre eles
+**Microsoft, RedHat, JetBrains e Mercedes-Benz**.
+
+A documentação do Nest é muito completa, quase tudo que desenvolvedores precisam para seus
+sistemas o Nest possui uma boa integração além de uma extensiva documentação.
+Isso vai desde instruções para conectar o banco de dados utilizando
+um ORM até a utilização e configuração de OpenAPI.
+
+Nest possui o que é chamado de módulos, que são extensões para uso de algumas ferramentas
+como o Swagger (OpenAPI), BullMQ, CacheManager entre outros.
+Os módulos disponibilizados pelo Nest possuem ótima integração com a aplicação.
+
+Como dito anteriormente, o Nest trás para o ecossistema JavaScript os melhores conceitos
+de aplicações back-end, como **injeção de dependências**.
+Kamil trouxe esses padrões de _linguagens fortemente tipadas, como C# e Java_.
+
+Exemplo de Hello World em Nest.js:
+
+```typescript
+import { Controller, Get, Query } from '@nestjs/common';
+
+@Controller()
+export class CatsController {
+  @Get('/hello')
+  helloWorld(@Query('name') name: string = 'World'): string {
+    return `Hello ${name}!`
+  }
+}
+```
+
+Exemplo de Hello World em Spring Boot (Java):
+
+```java
+package com.example.demo;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+@RestController
+public class DemoApplication {
+    public static void main(String[] args) {
+      SpringApplication.run(DemoApplication.class, args);
+    }
+    @GetMapping("/hello")
+    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+      return String.format("Hello %s!", name);
+    }
+}
+```
+
+Com esse exemplo é possível identificar de onde o Nest.js traz suas raízes e conceitos.
+
+Ao utilizar a injeção de dependências, o Nest transforma o gerenciamento
+de dependências em algo mais simples e de fácil manutenção,
+ao invés de deixá-lo mais complicado conforme a aplicação cresce.
+
+Nest.js é realmente uma ferramenta muito poderosa, com diversas funcionalidades,
+integrações e configurações.
+O framework trouxe mudanças para o cenário de desenvolvimento de aplicações Node.js,
+quando se pensa em desenvolver uma aplicação back-end em TypeScript
+uma das principais escolhas é o Nest.js.
