@@ -7,6 +7,7 @@ export type Lang = "en" | "pt-br";
 export enum PostTag {
   "Docker" = "Docker",
   "Algorítimos" = "Algorítimos",
+  "Node.js" = "Node.js",
 }
 
 export function readingTime(html: string, lang: Lang): string {

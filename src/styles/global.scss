@@ -7,12 +7,11 @@ body {
   padding: 0;
   line-height: 1.5;
 
-  background: rgb(248, 249, 250);
   background: linear-gradient(
     90deg,
-    rgba(248, 249, 250, 1) 0%,
-    rgba(233, 236, 239, 1) 52%,
-    rgba(222, 226, 230, 1) 100%
+    #eff1f5 0%,
+    #e6e9ef 52%,
+    #dce0e8 100%
   );
 
   -webkit-user-select: none;
