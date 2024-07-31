@@ -73,6 +73,10 @@ main {
           }
         }
 
+        blockquote {
+          @apply pl-4 border-l-4 border-[#9ca0b0] text-[#9ca0b0];
+        }
+
         table,
         th,
         td {
