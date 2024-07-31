@@ -63,6 +63,24 @@ main {
           @apply p-5 rounded-2xl mb-4;
         }
 
+        pre.tree {
+          @apply p-2;
+        }
+
+        p {
+          code {
+            @apply px-2 bg-[#1e1e2e] text-[#cdd6f4] rounded-xl;
+          }
+        }
+
+        table,
+        th,
+        td {
+          @apply px-4 py-2 text-sm mb-4;
+
+          border: 1px solid #4c4f69;
+        }
+
         a {
           @apply text-[#8839ef] transition-all duration-700;
 

@@ -1,0 +1,182 @@
+---
+title: "Estrutura de um Módulo Nest"
+description: "Módulos são usados pelo Nest.js para organizar a estrutura da aplicação em escopos."
+author: "Felipe Heredia"
+publish_date: "2024-07-31T10:00:00.000Z"
+image: "/images/node_js/estrutura_de_modulo_nest.png"
+image_alt: "Nest.js Cat with Nest, Java and Node.js logos"
+tag: "Node.js"
+slug: "estrutura-de-modulo-nest-js"
+---
+
+No momento em que se inicia um novo projeto utilizando Nest.js, o poderoso framework
+Node.js (link para meu post) já entrega uma estrutura base de arquivos.
+Em nosso contexto, iremos nos atentar para a pasta _src_, que é onde fica o código fonte.
+
+<pre class="tree">
+src
+├── app.controller.spec.ts
+├── app.controller.ts
+├── app.module.ts
+├── app.service.ts
+└── main.ts
+</pre>
+
+Abaixo, uma breve descrição da responsabilidade de cada um desses arquivos:
+
+| `Arquivo na src`         | Descrição do arquivo                                                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `app.controller.ts`      | Um controller simples com uma rota.                                                                                            |
+| `app.controller.spec.ts` | Testes unitários para o controller.                                                                                            |
+| `app.module.ts`          | O módulo principal da aplicação.                                                                                               |
+| `app.service.ts`         | Um service simples com uma função.                                                                                             |
+| `main.ts`                | O arquivo principal da aplicação que usa as funções essenciais do `NestFactory` para criar uma instância de aplicação Nest.    |
+
+Apesar dessa estrutura ser a inicial, não é a mais utilizada. Desenvolvedor Nest utilizam o poder dos módulos.
+
+## Módulo
+
+Através da CLI do Nest é possível gerar um novo módulo e ainda contendo um CRUD pré-montado,
+realmente o Nest é poderoso. É possível gerar o módulo utilizando o comando abaixo:
+
+`$ nest generate resource`
+
+![Criando módulo Nest](/images/node_js/estrutura_de_modulo_nest_criando.png)
+
+Como é possível ver na imagem acima, em 7 segundos foi criado um módulo _users_, usando REST API e com endpoints CRUD.
+Além de atualizar também o módulo principal da aplicação, importando o novo módulo de _users_.
+
+> CRUD refere-se as operações Create, Read, Update e Delete.
+
+Assim, foi criado a estrutura para o novo módulo, contendo _controller, service, module, entity_ e até _dto_'s.
+
+<pre>
+src/users
+├── dto
+│   ├── create-user.dto.ts
+│   └── update-user.dto.ts
+├── entities
+│   └── user.entity.ts
+├── users.controller.spec.ts
+├── users.controller.ts
+├── users.module.ts
+├── users.service.spec.ts
+└── users.service.ts
+</pre>
+
+Agora, vamos entrar no código para entender o que o Nest criou em nosso projeto.
+
+### Controller
+
+```ts
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+
+@Controller('users')
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
+
+  @Post()
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.usersService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.usersService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(+id, updateUserDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.usersService.remove(+id);
+  }
+}
+```
+
+Então, temos agora em nosso projeto um _controller_ de _users_ completo, com rotas de
+criação, leitura, atualização e deleção de usuários.
+
+### Service
+
+```ts
+import { Injectable } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+
+@Injectable()
+export class UsersService {
+  create(createUserDto: CreateUserDto) {
+    return 'This action adds a new user';
+  }
+
+  findAll() {
+    return `This action returns all users`;
+  }
+
+  findOne(id: number) {
+    return `This action returns a #${id} user`;
+  }
+
+  update(id: number, updateUserDto: UpdateUserDto) {
+    return `This action updates a #${id} user`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} user`;
+  }
+}
+```
+
+O _service_ reflete bastante o que vimos no _controller_, ele possui as funções que realizam
+as tarefas de criação, deleção etc. porém nesse caso só é retornado uma string para o
+_controller_ sem nenhuma ação.
+
+### DTO
+
+O que mais chama a atenção nesse caso é a utilização e criação desses _dto_'s. O que seriam _dtos_?
+
+Os _Data Transfer Objects_ (ou Objeto de Transferência de Dados) são objetos utilizados
+para transferir dados entre as camadas de uma aplicação,
+nesse caso são utilizados para transferir dados de uma rota HTTP (controller) para um service.
+Eles são importantes para garantir que a estrutura dos dados é consistente.
+
+É possível deixar os DTO's mais fortes através do uso da biblioteca _class-validator_,
+onde você pode ter certeza que a API recebe um campo _email_ e que ele realmente
+se trata de um email entre outras mais funcionalidades.
+
+Os DTOs nesse contexto são criados vazios, porém já são usados no _controller_ e _service_,
+então basta adicionar os campos que já irá funcionar o uso e entendimento dos campos.
+
+### Entity
+
+Temos também uma pasta contendo entidades, entidades são utilizadas para definir
+a estrutura de objetos no banco de dados, essa entidade gerada pelo Nest
+pode ser utilizada em conjunto com um ORM onde será definido os campos e qual a informação contida nele.
+
+### Module
+
+O arquivo _module_ é a parte mais importante, pois é onde serão definidas as informações daquele módulo,
+seus _controller, providers_ e o que será exportado desse módulo para outros módulos.
+
+Por fim, esse novo módulo deve ser importado no módulo principal da aplicação, o que o Nest já fez de forma automática.
+
+### Conclusão
+
+Foi possível entendermos como funciona um módulo no Nest e como criá-los de forma automática, através do comando `generate resource` usando a CLI.
+O Nest utiliza do conceito de injeção de dependências, dessa forma, _service_ é um provedor injetável, que pode ser injetado em outros módulos
+ou mesmo em outros decorators (como no caso do _controller_).
+
+> Módulos são usados pelo Nest para organizar a estrutura da aplicação em escopos.
+_Controllers_ e _Providers_ (como o service) são escopados pelo módulo em que eles estão declarados.

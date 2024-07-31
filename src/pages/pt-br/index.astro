@@ -28,6 +28,12 @@ const blogPosts = await getCollection("blog", ({ id, data }) => {
 
   return id.startsWith("pt-br/") && postIsPublished;
 });
+
+const sortedBlogPosts = blogPosts.sort((a, b) => {
+  const dateA = new Date(a.data.publish_date).getTime();
+  const dateB = new Date(b.data.publish_date).getTime();
+  return dateB - dateA;
+});
 ---
 
 <Layout
@@ -210,7 +216,7 @@ const blogPosts = await getCollection("blog", ({ id, data }) => {
 
         <ul class="posts-list">
           {
-            blogPosts.map(post => (
+            sortedBlogPosts.map(post => (
               <li class="post">
                 <a href={getRelativeLocaleUrl("pt-br", `blog/${post.slug}`)}>
                   <figure>
