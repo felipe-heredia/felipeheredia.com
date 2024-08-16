@@ -1,0 +1,98 @@
+---
+title: "A Poderosa CLI do Nest.js"
+description: "A CLI do Nest nos permite iniciar e gerenciar uma nova aplicação Nest.js."
+author: "Felipe Heredia"
+publish_date: "2024-08-16T10:00:00.000Z"
+image: "/images/thumbs/nest_js/nest_cli.png"
+image_alt: "Nest.js Logo with a Terminal Icon in the center"
+tag: "Node.js"
+slug: "nest-js-cli"
+---
+
+A CLI do Nest é uma interface de linha de comando que auxilia na inicialização,
+desenvolvimento e manutenção de aplicações Nest. Ela auxilia de diversas maneiras
+como na estruturação de projetos, servir a aplicação em modo de desenvolvimento
+e construir a aplicação para produção.
+
+> CLI, ou _command-line interface_, é uma forma de interagir com um programa
+de computador, onde se faz uso de linhas de comando.
+
+## Instalando a CLI do Nest
+
+```bash
+$ npm install -g @nestjs/cli
+```
+
+Com a CLI instalada é possível gerar uma nova aplicação Nest. Além disso a CLI
+auxilia na criação de novos arquivos na aplicação. Como a criação de classes,
+controllers, decorators entre outros.
+
+```bash
+$ new nest project-name
+```
+
+Através dese comando é possível gerar uma aplicação Nest com o nome 'project-name'.
+A CLI irá perguntar qual o gerenciador de pacotes, o desenvolvedor escolhe uma
+das opções e ela será a padrão usada no projeto.
+
+## Sintaxe da CLI
+
+A CLI possui uma sintaxe simples e eficiente.
+
+```bash
+$ nest commandOrAlias requiredArg [oções] [oções]
+```
+
+Exemplo:
+
+```bash
+$ nest new myproject
+```
+
+## Espaços de trabalho
+
+A CLI possui duas maneiras de organizar o código:
+
+- **Modo padrão**: útil para construir aplicações individuais focados em projetos que
+possuem suas próprias dependências e configurações e não precisam otimizar o
+compartilhamento de módulos ou otimizar compilações.
+- **Modo monorepo**: Este modo trata artefatos de código como parte de um monorepo
+leve e pode ser mais apropriado para equipes de desenvolvedores e/ou ambientes de
+vários projetos. Ele automatiza partes do processo de build para facilitar a criação
+e composição de componentes modulares, promove a reutilização de código, facilita os
+testes de integração, facilita o compartilhamento de artefatos de todo o projeto,
+como regras eslint e outras políticas de configuração.
+
+O desenvolvedor pode trocar entre os modos maneira simples à qualquer momento.
+Então é possível deixar essa decisão para o futuro até que os benefícios
+se tornem mais claros para cada caso de uso.
+
+## Scripts
+
+A CLI possui alguns scripts que auxiliam no gerenciamento dos ambientes Nest.
+
+### Build
+
+`nest build` é um wrapper para os compiladores `tsc`, `swc`, `ts-loader`. Não adiciona outras
+funcionalidades de compilação ou passos, a não ser lidar com os `tsconfig-paths` para deixá-los
+pronto para uso.
+
+### Execution
+
+`nest start` apenas se certifica que o projeto foi compilado (o mesmo que `nest build`)
+e chama o comando `node` de uma maneira fácil e simples para executar aplicações compiladas.
+
+Assim como no build o desenvolvedor é livre para customizar esse processo como necessário,
+seja usando o comando `nest start` e suas opções ou substituindo-o completamente.
+Todo o processo é o processo padrão para compilar e executar aplicações TypeScript,
+o desenvolvedor é livre para gerenciar esse processo.
+
+### Generation
+
+Os comandos `nest generate`, gera novas aplicações Nest ou componentes dentro de aplicações existentes.
+
+## Conclusão
+
+A CLI do Nest auxilia desenvolvedores e DevOps na organização de aplicações e ambientes Nest.
+O uso dela traz benefícios na organização e gerenciamento de cada aplicação, além de ser extensível, editável e
+até mesmo completamente removível de cada aplicação Nest.
