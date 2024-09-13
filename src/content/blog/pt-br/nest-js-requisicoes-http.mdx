@@ -1,0 +1,203 @@
+---
+title: "Tratamento de solicitações e respostas HTTP em Nest.js"
+description: "Requisições e Respostas HTTP necessitam de uma comunicação muito eficaz. Como podemos realizar operações HTTP de maneira eficaz com Nest?"
+author: "Felipe Heredia"
+publish_date: "2024-09-13T10:00:00.000Z"
+image: "/images/thumbs/nest.js/nest_http_handle.png"
+image_alt: "Nest.js and some people organising information and data."
+tag: "Node.js"
+slug: "nest-js-requisicoes-http"
+---
+
+Em um ambiente de APIs REST é extremamente importante que a API lide de maneira
+eficaz com respostas e status HTTP. Para se fazer uma API consistente é
+necessário informações condizentes, onde o status é de erro e a resposta também.
+O Nest.js lida com requisições HTTP de maneira simples e eficaz, através dos
+chamados controladores (controllers).
+
+> Controladores são responsáveis por lidar com solicitações recebidas e retorno
+> de respostas ao cliente.
+>
+> O propósito de um controlador é receber solicitações específicas para a
+> aplicação Nest. Frequentemente, controladores possuem mais de uma rota, e
+> diferentes rotas podem executar diferentes ações.
+
+Iremos entender como os controladores funcionam e como podemos utilizar o poder
+do Nest para responder requisições HTTP de maneira consistente e eficaz.
+
+### Recebendo informações
+
+**O Nest utiliza decoradores (decorators) para criar controladores.** Abaixo
+segue um exemplo de um controller básico:
+
+```typescript
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+
+@Controller('users')
+export class UsersController {
+  @Get()
+  getAllUsers() {
+    return 'Retorna todos os usuários';
+  }
+
+  @Post()
+  createUser(@Body('name') name: string) {
+    return `Usuário ${name} criado com sucesso!`;
+  }
+
+  @Get(':id')
+  getUserById(@Param('id') id: string) {
+    return `Retorna o usuário com ID: ${id}`;
+  }
+}
+```
+
+São disponibilizados através do pacote `@nestjs/common` os decoradores para
+setar e receber as informações de requisições HTTP, como setar o tipo da rota
+(Get ou Post no exemplo), também receber parâmetros e um corpo na requisição.
+
+Existem outros decoradores mais específicos, como `Headers`, `Ip`, `Session`
+entre outros, todos disponibilizados através do pacote `common`. *Também é
+possível criar decoradores customizados*.
+
+```typescript
+@Post('create')
+createUser(
+  @Body('name') name: string,
+  @Body('email') email: string,
+  @Headers('authorization') authHeader: string,
+) {
+  return `Usuário ${name} criado com email ${email}. Token: ${authHeader}`;
+}
+```
+
+### Respondendo informações ao cliente
+
+Como vimos acima através dos decoradores é bem simples recebermos informações
+como `Body`, `Headers`, agora como podemos responder um status HTTP de não
+autorizado ou não encontrado?
+
+É possível no próprio controller receber o parâmetro `Res` através de um
+decorador, mas particularmente **não é o caso em que eu prefiro e acho mais
+legível**.
+
+```typescript
+@Get(':id')
+findUser(@Param('id') id: string, @Res() res: Response) {
+  const user = this.userService.findById(id);
+  if (!user) {
+    return res.status(404).send('Usuário não encontrado');
+  }
+  return res.status(200).json(user);
+}
+```
+
+Eu prefiro um caso onde o serviço (service) é responsável por fazer esse
+tratamento da resposta e lançar um erro, o Nest também nos auxilia com isso.
+
+```typescript
+import { Controller, Get, Param } from '@nestjs/common';
+import { UsersService } from './users.service';
+
+@Controller('users')
+export class UsersController {
+  constructor(private readonly userService: UsersService) {}
+
+  @Get(':id')
+  findUser(@Param('id') id: string) {
+    return this.userService.findById(id);
+  }
+}
+```
+
+```typescript
+import { Injectable, NotFoundException } from '@nestjs/common';
+
+@Injectable()
+export class UsersService {
+  private users = []
+
+  async findById(id: string) {
+    const user = this.users.find(user => user.id === id);
+
+    if (!user) {
+      throw new NotFoundException('Usuário não encontrado');
+    }
+
+    return user;
+  }
+}
+```
+
+Dessa forma, caso o usuário não seja encontrado, o próprio serviço já retornará
+para o controller informações como status 404 e a mensagem "Usuário não
+encontrado", assim teremos um erro parecido com o seguinte abaixo:
+
+```json
+{
+  "statusCode": 404,
+  "message": "Usuário não encontrado"
+}
+```
+
+### Recebendo informações mais precisas
+
+Através do uso de DTOs e de Pipes é possível receber informações mais precisas
+das requisições e retornar erros antes mesmo de executar o código do seu
+controlador.
+
+```typescript
+import { IsEmail, IsNotEmpty } from 'class-validator';
+
+export class CreateUserDto {
+  @IsNotEmpty({ message: 'O nome não pode estar vazio' })
+  name: string;
+
+  @IsEmail({}, { message: 'O e-mail precisa ser válido' })
+  email: string;
+}
+```
+
+```typescript
+import { Controller, Post, Body } from '@nestjs/common';
+import { CreateUserDto } from './create-user.dto';
+
+@Controller('users')
+export class UsersController {
+  @Post('create')
+  createUser(@Body() { name, email }: CreateUserDto) {
+    return `Usuário ${name} criado com o e-mail ${email}`;
+  }
+}
+```
+
+Dessa maneira, caso o campo name esteja vazio, já será retornado um erro com a
+mensagem setada no dto.
+
+```typescript
+import { Controller, Get, Param, ParseUUIDPipe } from '@nestjs/common';
+
+@Controller('users')
+export class UsersController {
+  @Get(':id')
+  getUserById(@Param('id', ParseUUIDPipe) id: string) {
+    return `Retorna o usuário com ID: ${id}`;
+  }
+}
+```
+
+Nesse caso acima, se não for possível transformar id em um UUID, será retornado
+um erro.
+
+### Conclusão
+
+Como vimos, é possível lidar com requisições HTTP de maneira simples e eficaz
+com a utilização do Nest.
+
+O Nest nos disponibiliza grandes poderes e formas diferentes de realizar a
+mesma tarefa, irá depender do desenvolvedor escolher a melhor maneira de
+aplicar cada conceito seguindo os padrões de cada projeto em que esteja
+inserido.
+
+[A documentação do Nest](https://docs.nestjs.com/) é muito completa, mais
+informações podem ser obtidas direto da fonte através da documentação.
