@@ -1,0 +1,134 @@
+---
+title: "Utilizando Guards no Nest.js"
+description: "Guards no Nest.js auxiliam o desenvolvedor em validações antes da instância executar as ações do Controller."
+author: "Felipe Heredia"
+publish_date: "2024-10-18T11:00:00.000Z"
+image: "/images/thumbs/nest_js/guards_nest_js.png"
+image_alt: "Imagem com pessoas segurando um cadeado representando segurança."
+tag: "Node.js"
+slug: "utilizando-guards-nest"
+---
+
+Os Guards no Nest.js possuem uma única responsabilidade, eles determinam se
+uma requisição será autorizada ou não, dependendo de algumas circunstâncias.
+Eles possuem acesso à instância do contexto da execução (`ExecutionContext`) e
+sabe exatamente o que deve ser executado caso a requisição seja autorizada.
+
+Guards são executados depois de todos os middlewares, porém antes de qualquer
+interceptor e pipe.
+
+Guards foram projetados para permitir o desenvolvedor lidar com a lógica de
+processamento no local correto do ciclo de requisição/resposta e fazer isso de
+maneira declaravita. Isso ajuda a manter o código limpo.
+
+## Autorização
+
+Autorização é um grande e comum uso de caso para os Guards, pois determinadas
+rotas estar disponíveis apenas se o usuário autenticado possuir permissões
+suficientes, abaixo um exemplo de Guard.
+
+```ts
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { jwtConstants } from './constants';
+import { Request } from 'express';
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  constructor(private jwtService: JwtService) {}
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest();
+    const token = this.extractTokenFromHeader(request);
+
+    if (!token) throw new UnauthorizedException();
+
+    try {
+      const payload = await this.jwtService.verifyAsync(
+        token,
+        {
+          secret: jwtConstants.secret
+        }
+      );
+
+      request['user'] = payload;
+    } catch {
+      throw new UnauthorizedException();
+    }
+
+    return true;
+  }
+
+  private extractTokenFromHeader(request: Request): string | undefined {
+    const [type, token] = request.headers.authorization?.split(' ') ?? [];
+    return type === 'Bearer' ? token : undefined;
+  }
+}
+```
+
+```ts
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Request,
+  UseGuards
+} from '@nestjs/common';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
+
+@Controller('auth')
+export class AuthController {
+  constructor(private authService: AuthService) {}
+
+  @HttpCode(HttpStatus.OK)
+  @Post('login')
+  signIn(@Body() signInDto: Record<string, any>) {
+    return this.authService.signIn(signInDto.username, signInDto.password);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('profile')
+  getProfile(@Request() req) {
+    return req.user;
+  }
+}
+```
+
+Com o código acima, antes do ciclo de vida chegar na função Controller em si,
+ocorrerá a validação do Guard. Nesse caso, se o token não for enviado na requisição
+ocorrerá uma resposta de "Não autorizado". Após a validação de maneira positiva
+do Guards, será possível realizar o [tratamento de solicitações e respostas HTTP][nest-js-requisicoes-http].
+
+Dessa maneira, na rota de visualizar o perfil, caso o token não exista, será
+retornado 401. Caso ele exista, as informações serão extraídas e inseridas no campo
+"user" na requisição, tornando possível o controle obter mais informações do user
+caso necessário.
+
+A aplicação e uso de Guards é simples, como praticamente tudo dentro do Nest.js.
+
+## Contexto de Execução
+
+A função `canActivate()` recebe apenas um parâmetro, a instância do `ExecutionContext`,
+quem vem de `ArgumentsHost`. [ArgumentsHost é um objeto utilitário poderoso][nest-arguments-host], através
+dele é possível obter informações do `Request` e `Response`.
+
+## Conclusão
+
+Como vimos, utilizar Guards no Nest é simples e eficiente, é possível realizar
+validações nas informações recebidas da requisição e alterar informações contidas
+na requisição para que fiquem mais acessíveis em outros contextos.
+
+Como tudo que vimos no Nest até agora, é uma funcionalidade poderosa, que quando
+bem utilizada trás simplicidade e agilidade a aplicação.
+
+[nest-arguments-host]: https://docs.nestjs.com/fundamentals/execution-context#argumentshost-class
+[nest-js-requisicoes-http]: /pt-br/blog/nest-js-requisicoes-http/
