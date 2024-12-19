@@ -5,109 +5,110 @@ import { Mail } from "lucide";
 export type Lang = "en" | "pt-br";
 
 export enum PostTag {
-  "Docker" = "Docker",
-  "Algorítimos" = "Algorítimos",
-  "Node.js" = "Node.js",
+	"Docker" = "Docker",
+	"Algorítimos" = "Algorítimos",
+	"Node.js" = "Node.js",
+	"Organização" = "Organização",
 }
 
 export function readingTime(html: string, lang: Lang): string {
-  if (!html.trim()) return "";
+	if (!html.trim()) return "";
 
-  const textOnly = html
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+	const textOnly = html
+		.replace(/<[^>]+>/g, " ")
+		.replace(/\s+/g, " ")
+		.trim();
 
-  const words = textOnly.match(/\b\w+\b/g) || [];
-  const wordCount = words.length;
+	const words = textOnly.match(/\b\w+\b/g) || [];
+	const wordCount = words.length;
 
-  const readingTimeMinutes = wordCount / 200;
-  const roundedReadingTime = Math.ceil(readingTimeMinutes);
+	const readingTimeMinutes = wordCount / 200;
+	const roundedReadingTime = Math.ceil(readingTimeMinutes);
 
-  const readTimeTexts = { en: "read time", "pt-br": "tempo de leitura" };
+	const readTimeTexts = { en: "read time", "pt-br": "minutos" };
 
-  return `${roundedReadingTime} ${readTimeTexts[lang]}`;
+	return `${roundedReadingTime} ${readTimeTexts[lang]}`;
 }
 
 export function formatDate(date: Date, dateFormat: string, lang: Lang): string {
-  const locales = {
-    en: enUS,
-    "pt-br": ptBR,
-  };
+	const locales = {
+		en: enUS,
+		"pt-br": ptBR,
+	};
 
-  const locale = locales[lang];
+	const locale = locales[lang];
 
-  return format(date, dateFormat, { locale });
+	return format(date, dateFormat, { locale });
 }
 
 export const footerLinks = [
-  {
-    iconClass: "devicon-github-original",
-    href: "https://github.com/felipe-heredia",
-  },
-  {
-    iconClass: "devicon-linkedin-plain",
-    href: "https://linkedin.com/in/f-heredia",
-  },
-  {
-    iconClass: "devicon-twitter-plain",
-    href: "https://twitter.com/_felipesuri",
-  },
-  {
-    lucideIcon: Mail,
-    href: "mailto:hello@felipeheredia.com",
-  },
+	{
+		iconClass: "devicon-github-original",
+		href: "https://github.com/felipe-heredia",
+	},
+	{
+		iconClass: "devicon-linkedin-plain",
+		href: "https://linkedin.com/in/f-heredia",
+	},
+	{
+		iconClass: "devicon-twitter-plain",
+		href: "https://twitter.com/_felipesuri",
+	},
+	{
+		lucideIcon: Mail,
+		href: "mailto:hello@felipeheredia.com",
+	},
 ];
 
 export const skills = [
-  {
-    name: "Node.js",
-    iconClass: "devicon-nodejs-plain colored",
-  },
-  { iconClass: "devicon-amazonwebservices-plain colored" },
-  {
-    name: "Nest.js",
-    iconClass: "devicon-nestjs-plain colored",
-  },
-  {
-    name: "TypeScript",
-    iconClass: "devicon-typescript-plain colored",
-  },
-  {
-    name: "Golang",
-    iconClass: "devicon-go-plain colored",
-  },
-  {
-    name: "Docker",
-    iconClass: "devicon-docker-plain colored",
-  },
-  {
-    name: "PostgreSQL",
-    iconClass: "devicon-postgresql-plain colored",
-  },
-  {
-    name: "Neovim",
-    iconClass: "devicon-neovim-plain colored",
-  },
-  {
-    name: "Azure",
-    iconClass: "devicon-azure-plain colored",
-  },
-  {
-    name: "Rust",
-    iconClass: "devicon-rust-plain colored",
-  },
-  {
-    name: "WordPress",
-    iconClass: "devicon-wordpress-plain colored",
-  },
+	{
+		name: "Node.js",
+		iconClass: "devicon-nodejs-plain colored",
+	},
+	{ iconClass: "devicon-amazonwebservices-plain colored" },
+	{
+		name: "Nest.js",
+		iconClass: "devicon-nestjs-plain colored",
+	},
+	{
+		name: "TypeScript",
+		iconClass: "devicon-typescript-plain colored",
+	},
+	{
+		name: "Golang",
+		iconClass: "devicon-go-plain colored",
+	},
+	{
+		name: "Docker",
+		iconClass: "devicon-docker-plain colored",
+	},
+	{
+		name: "PostgreSQL",
+		iconClass: "devicon-postgresql-plain colored",
+	},
+	{
+		name: "Neovim",
+		iconClass: "devicon-neovim-plain colored",
+	},
+	{
+		name: "Azure",
+		iconClass: "devicon-azure-plain colored",
+	},
+	{
+		name: "Rust",
+		iconClass: "devicon-rust-plain colored",
+	},
+	{
+		name: "WordPress",
+		iconClass: "devicon-wordpress-plain colored",
+	},
 ];
 
 export const certifications = [
-  {
-    link: "https://www.credly.com/badges/e871a3ed-adc7-4ea5-981f-7b39998bee6b",
-    image:
-      "https://images.credly.com/size/340x340/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png",
-    text: "AWS Certified Cloud Practitioner",
-  },
+	{
+		link: "https://www.credly.com/badges/e871a3ed-adc7-4ea5-981f-7b39998bee6b",
+		image:
+			"https://images.credly.com/size/340x340/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png",
+		text: "AWS Certified Cloud Practitioner",
+	},
 ];
