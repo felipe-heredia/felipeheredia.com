@@ -9,6 +9,7 @@ export enum PostTag {
 	"Algorítimos" = "Algorítimos",
 	"Node.js" = "Node.js",
 	"Organização" = "Organização",
+	"Produtividade" = "Produtividade",
 }
 
 export function readingTime(html: string, lang: Lang): string {
