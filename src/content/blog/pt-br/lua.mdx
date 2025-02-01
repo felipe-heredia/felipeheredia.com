@@ -1,0 +1,79 @@
+---
+title: "Lua, uma lingiagem leve e simples"
+description: "Lua é uma linguagem de programação eficiente e leve projetada para estender aplicações. É uma linguagem ideal para configuração, automação e prototipagem."
+author: "Felipe Heredia"
+publish_date: "2025-01-31T21:00:00.000Z"
+image: "/images/thumbs/moon.jpg"
+image_alt: "Moon"
+tag: "Linguagens"
+slug: "lua"
+---
+
+Lua é uma linguagem de programação eficiente e leve, projetada para estender 
+aplicações. É uma linguagem ideal para configuração, automação e prototipagem.
+
+Criada na PUC-Rio em 1993, Lua é uma linguagem de programação brasileira e 
+única com impacto global que foi desenvolvida fora de países de primeiro mundo.
+
+A linguagem ganhou o prêmio [Front Line Award em 2011][1]:
+
+> Lua tem se tornado uma linguagem de programação extremamente popular, tanto 
+> que tem alcançado uma massa crítica de desenvolvedores na indústria dos jogos,
+> o que significa que os conhecimentos em Lua são transferidos de companhia 
+> para companhia. Isso se deve em parte à sua velocidade e à facilidade com que 
+> desenvolvedores conseguem incorporar em uma Game Engine.
+
+Lua é utilizada em diversas aplicações com mais uso em sistemas embutidos e 
+jogos. A linguagem é utilizada em World of Warcraft para realizar 
+customizações de interface, também é utilizada pela comunidade de Neovim para 
+escrever as configurações e plugins.
+
+```lua
+print "Hello, World!"
+```
+
+No mundo de código aberto Lua é tão forte na comunidade Neovim que ao visitar 
+o tópico de Lua no GitHub a maioria dos projetos são plugins para Neovim.
+
+A linguagem é rápida e simples, o que pode explicar a adoção pela comunidade 
+Neovim visto que é um editor de texto que pode ser configurado para diversas 
+linguagens diferentes, seria necessário uma linguagem simples, rápida, 
+poderosa e pequena para as configurações do editor de texto.
+
+```lua
+function Colorscheme(theme)
+  local color = "catppuccin-mocha"
+
+  if theme == "light" then
+    color = "catppuccin-latte"
+  end
+
+  vim.cmd.colorscheme(color)
+
+  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end
+```
+
+Lua foi desenhada para ser facilmente incorporada em aplicações escrita em 
+outras linguagens, principalmente C e C++. Abaixo um exemplo da utilização da 
+Lua em C:
+
+```c
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>
+
+int main() {
+    lua_State *L = luaL_newstate();
+    luaL_openlibs(L);
+    luaL_dofile(L, "./myscript.lua");
+    lua_close(L);
+    return 0;
+}
+```
+
+Se você estiver buscando por uma linguagem de script simples e eficiente, dê 
+uma chance para Lua!
+
+[1]: https://www.gamedeveloper.com/audio/announcing-i-game-developer-i-magazine-s-2011-front-line-award-winners 
