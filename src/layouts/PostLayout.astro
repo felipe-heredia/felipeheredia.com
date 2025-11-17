@@ -1,8 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { Calendar, Tag, Clock } from "lucide";
+import { Calendar, Tag, Clock } from "@lucide/astro";
 
-import LucideIcon from "@/components/lucide-icon.astro";
 import "@/styles/post.scss";
 import BaseHead from "@/components/BaseHead.astro";
 import { readingTime, formatDate, footerLinks, PostTag, type Lang } from "@/lib/utils";
@@ -33,19 +32,19 @@ const { title, description, publish_date, tag, content, lang } = Astro.props;
 
           <div class="info">
             <span>
-              <LucideIcon icon={Calendar} width="14px" />
+              <Calendar width="14px" />
               <time datetime={publish_date}>
                 {formatDate(new Date(publish_date), "MMM dd, y", lang)}
               </time>
             </span>
 
             <span class="uppercase">
-              <LucideIcon icon={Tag} width="14px" />
+              <Tag width="14px" />
               {tag}
             </span>
 
             <span>
-              <LucideIcon icon={Clock} width="14px" />
+              <Clock width="14px" />
               {readingTime(content, lang)}
             </span>
           </div>
@@ -83,9 +82,7 @@ const { title, description, publish_date, tag, content, lang } = Astro.props;
             footerLinks.map(link => (
               <a href={link.href} target="_blank">
                 {link.iconClass && <i class={link.iconClass} />}
-                {link.lucideIcon && (
-                  <LucideIcon icon={link.lucideIcon} width="20px" stroke-width="1" />
-                )}
+                {link.lucideIcon && <link.lucideIcon width="20px" stroke-width="1" />}
               </a>
             ))
           }

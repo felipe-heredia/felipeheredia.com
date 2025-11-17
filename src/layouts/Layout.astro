@@ -1,6 +1,5 @@
 ---
 import BaseHead from "@/components/BaseHead.astro";
-import LucideIcon from "@/components/lucide-icon.astro";
 import type { Lang } from "@/lib/utils";
 import { footerLinks } from "@/lib/utils";
 
@@ -34,9 +33,7 @@ const { title, description, lang } = Astro.props;
           footerLinks.map(link => (
             <a href={link.href} target="_blank">
               {link.iconClass && <i class={link.iconClass} />}
-              {link.lucideIcon && (
-                <LucideIcon icon={link.lucideIcon} width="20px" stroke-width="1" />
-              )}
+              {link.lucideIcon && <link.lucideIcon width="20px" stroke-width="1" />}
             </a>
           ))
         }
