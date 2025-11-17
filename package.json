@@ -10,10 +10,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.4.1",
-    "@astrojs/mdx": "^2.2.1",
-    "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.5.4",
+    "@astrojs/check": "^0.9.5",
+    "@astrojs/mdx": "^4.3.10",
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.15.8",
     "date-fns": "^3.6.0",
     "lucide": "^0.363.0",
     "sass": "^1.72.0",
