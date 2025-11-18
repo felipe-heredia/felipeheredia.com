@@ -2,7 +2,7 @@ main {
   @apply min-h-screen;
 
   article {
-    @apply m-auto max-w-full px-8;
+    @apply m-auto max-w-full px-8 select-text;
 
     header.article-head {
       @apply items-center justify-center text-center w-full pt-10 mb-5 px-5;
@@ -59,7 +59,8 @@ main {
           @apply text-center;
         }
 
-        ul, ol {
+        ul,
+        ol {
           @apply mb-4;
         }
 
