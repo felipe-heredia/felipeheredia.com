@@ -64,11 +64,6 @@ export const footerLinks = [
 
 export const skills = [
 	{
-		name: "Node.js",
-		iconClass: "devicon-nodejs-plain colored",
-	},
-	{ iconClass: "devicon-amazonwebservices-plain colored" },
-	{
 		name: "Nest.js",
 		iconClass: "devicon-nestjs-plain colored",
 	},
@@ -77,32 +72,32 @@ export const skills = [
 		iconClass: "devicon-typescript-plain colored",
 	},
 	{
-		name: "Golang",
-		iconClass: "devicon-go-plain colored",
-	},
-	{
-		name: "Docker",
-		iconClass: "devicon-docker-plain colored",
-	},
-	{
-		name: "PostgreSQL",
-		iconClass: "devicon-postgresql-plain colored",
-	},
-	{
-		name: "Neovim",
-		iconClass: "devicon-neovim-plain colored",
+		name: "Node.js",
+		iconClass: "devicon-nodejs-plain colored",
 	},
 	{
 		name: "Azure",
 		iconClass: "devicon-azure-plain colored",
 	},
 	{
-		name: "Rust",
-		iconClass: "devicon-rust-plain colored",
+		name: "PostgreSQL",
+		iconClass: "devicon-postgresql-plain colored",
 	},
 	{
-		name: "WordPress",
-		iconClass: "devicon-wordpress-plain colored",
+		name: "Redis",
+		iconClass: "devicon-redis-plain colored",
+	},
+	{
+		name: "Neovim",
+		iconClass: "devicon-neovim-plain colored",
+	},
+	{
+		name: "Linux",
+		iconClass: "devicon-linux-plain colored",
+	},
+	{
+		name: "Docker",
+		iconClass: "devicon-docker-plain colored",
 	},
 ];
 

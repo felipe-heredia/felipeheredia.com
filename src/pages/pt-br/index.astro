@@ -12,19 +12,14 @@ const services = [
   {
     name: "Desenvolvimento de Software",
     description:
-      "Transformando <b>ideias em realidade</b>. Com mais de quatro anos de experiência em Desenvolvimento de Software, eu <mark>manejo minha espada de código</mark> para produzir soluções facilmente. Eu estou pronto para aprender e me adaptar, pronto para <i>conquistar qualquer desafio</i> que aparecer em meu caminho.",
-  },
-  {
-    name: "Consultoria de Software",
-    description:
-      "Como um caçador de recompensas, eu navego no mundo digital, procurando por soluções sob medida para as suas necessidades. Com mais de quatro anos de experiências sólidas, eu irei buscar por soluções e melhorias. Adaptabilidade é a minha armadura, código é a minha ferramenta. Eu estou pronto para conquistar qualquer desafio que cruzar o meu caminho.",
+      "Transformando <b>ideias em realidade</b>. Com mais de quatro anos de experiência em Desenvolvimento de Software, eu para produzir soluções simples e eficazes. Eu estou pronto para aprender e me adaptar, pronto para <i>conquistar qualquer desafio</i> que aparecer em meu caminho.",
   },
 ];
 
 const blogPosts = await getCollection("blog", ({ id, data }) => {
-  const today = Date.now()
-  const publishDate = new Date(data.publish_date).getTime()
-  const postIsPublished = today >= publishDate
+  const today = Date.now();
+  const publishDate = new Date(data.publish_date).getTime();
+  const postIsPublished = today >= publishDate;
 
   return id.startsWith("pt-br/") && postIsPublished;
 });
@@ -38,7 +33,7 @@ const sortedBlogPosts = blogPosts.sort((a, b) => {
 
 <Layout
   title="Página Inicial"
-  description="Desenvolvedor de Software com mais de quatro anos de experiência. Especializado em TypeScript."
+  description="Desenvolvedor de Software, especializado em TypeScript."
   lang="pt-br"
 >
   <main>
@@ -56,20 +51,15 @@ const sortedBlogPosts = blogPosts.sort((a, b) => {
             </figure>
 
             <aside>
-              <h3 class="mb-2">
-                Olá, sou <br />
-                Felipe Heredia!
-              </h3>
-              <h4>Desenvolvedor Backend</h4>
+              <h3 class="mb-2">Olá, sou Felipe Heredia!</h3>
+              <h4>Desenvolvedor</h4>
             </aside>
           </div>
 
           <p>
-            Eu sou <i>Felipe Heredia</i>, Desenvolvedor de Software com mais de
-            <b>quatro anos de experiência</b>. Sou especializado em
-            <b>TypeScript</b>, apesar de ter desenvolvido outros projetos com <b>Rust</b> e
-            outras <b>linguagens voltadas para backend</b>. Eu vivo em São Paulo, Brasil.
-            Eu gosto de resolver problemas - e me divertir fazendo isso. I use Vim btw.
+            Desenvolvedor de Software especializado no desenvolvimento em
+            <b>TypeScript</b>, principalmente <b>Nest.js</b>. Apaixonado pelo mundo de
+            código aberto.
           </p>
         </div>
 
