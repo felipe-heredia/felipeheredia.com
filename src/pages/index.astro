@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets"
 import { getCollection } from "astro:content";
 
 import "@/styles/home.scss";
@@ -48,9 +49,9 @@ const columnOrderedPosts = columns.flat()
         <div class="hello">
           <div class="avatar-container">
             <figure class="avatar">
-              <img
-                width="145px"
-                height="145px"
+              <Image
+                width="145"
+                height="145"
                 src="https://avatars.githubusercontent.com/u/50281523?v=4"
                 alt="Felipe Heredia, depicted in the image"
               />
@@ -202,7 +203,7 @@ const columnOrderedPosts = columns.flat()
           {
             certifications.map(certification => (
               <a class="certification" href={certification.link} target="_blank">
-                <img width="175px" src={certification.image} alt="" />
+								<Image width="175" height="175" src={certification.image} alt={certification.text} />
                 <b>{certification.text}</b>
               </a>
             ))
@@ -221,7 +222,7 @@ const columnOrderedPosts = columns.flat()
               <li class="post">
                 <a href={`/blog/${post.slug}`}>
                   <figure>
-                    <img
+                    <Image
                       src={post.data.image}
                       alt={post.data.image_alt}
                       width="450"

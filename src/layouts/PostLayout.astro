@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { Image } from "astro:assets"
 import { Calendar, Tag, Clock } from "@lucide/astro";
 
 import "@/styles/post.scss";
@@ -51,9 +52,9 @@ const { title, description, publish_date, tag, content, lang } = Astro.props;
 
           <a href={getRelativeLocaleUrl(lang, "/")}>
             <figure class="avatar">
-              <img
-                width="145px"
-                height="145px"
+              <Image
+                width="145"
+                height="145"
                 src="https://avatars.githubusercontent.com/u/50281523?v=4"
                 alt="Felipe Heredia, depicted in the image"
               />
