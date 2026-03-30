@@ -29,6 +29,17 @@ const sortedBlogPosts = blogPosts.sort((a, b) => {
   const dateB = new Date(b.data.publish_date).getTime();
   return dateB - dateA;
 });
+
+// Reorder posts so CSS columns (top-to-bottom flow) displays them in row-first order
+const COLUMN_COUNT = 3;
+const columns: typeof sortedBlogPosts[] = Array.from({ length: COLUMN_COUNT }, () => []);
+
+sortedBlogPosts.forEach((post, index) => {
+	const targetColumn = index % COLUMN_COUNT;
+	columns[targetColumn].push(post)
+})
+
+const columnOrderedPosts = columns.flat()
 ---
 
 <Layout
@@ -206,7 +217,7 @@ const sortedBlogPosts = blogPosts.sort((a, b) => {
 
         <ul class="posts-list">
           {
-            sortedBlogPosts.map(post => (
+            columnOrderedPosts.map(post => (
               <li class="post">
                 <a href={getRelativeLocaleUrl("pt-br", `blog/${post.slug}`)}>
                   <figure>

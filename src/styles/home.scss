@@ -143,21 +143,33 @@ main {
   }
 
   section.posts section.posts-container {
-    @apply flex flex-col pb-10;
+    @apply pb-10;
 
     ul.posts-list {
-      @apply flex flex-wrap items-start justify-center w-3/4;
+      @apply mx-auto;
 
-      align-self: center;
+      list-style: none;
+      padding: 0;
+      column-count: 3;
+      column-gap: 1.5rem;
+      max-width: 85rem;
+
+      @media (max-width: 1024px) {
+        column-count: 2;
+        max-width: 45rem;
+      }
+
+      @media (max-width: 640px) {
+        column-count: 1;
+        max-width: 25rem;
+      }
 
       li.post {
-        @apply w-80 m-3 rounded-2xl transition-all duration-700;
+        @apply mb-6 rounded-2xl transition-all duration-700;
 
         box-shadow: 1px 4px 8px #ccc;
         break-inside: avoid;
-        position: relative;
         display: inline-block;
-        align-self: flex-end;
 
         img {
           @apply rounded-t-2xl;

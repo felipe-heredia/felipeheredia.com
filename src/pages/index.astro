@@ -24,6 +24,17 @@ export const services = [
 const blogPosts = await getCollection("blog", ({ id, data }) => {
   return id.startsWith("en/") && data.publish_date;
 });
+
+// Reorder posts so CSS columns (top-to-bottom flow) displays them in row-first order
+const COLUMN_COUNT = 3;
+const columns: typeof blogPosts[] = Array.from({ length: COLUMN_COUNT }, () => []);
+
+blogPosts.forEach((post, index) => {
+	const targetColumn = index % COLUMN_COUNT;
+	columns[targetColumn].push(post)
+})
+
+const columnOrderedPosts = columns.flat()
 ---
 
 <Layout
@@ -206,7 +217,7 @@ const blogPosts = await getCollection("blog", ({ id, data }) => {
 
         <ul class="posts-list">
           {
-            blogPosts.map(post => (
+            columnOrderedPosts.map(post => (
               <li class="post">
                 <a href={`/blog/${post.slug}`}>
                   <figure>
